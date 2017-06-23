@@ -51,11 +51,11 @@ fclose(fd);
 
 	if (sno[0] == '*')
 	{
-		sprintf(sql, "select * from information");
+		sprintf(sql, "select  sno,sname,ssex,sbirthday,sphone from information  where judge = 1");
 	}
 	else
 	{
-		sprintf(sql, "select * from information where sno = %d ", atoi(sno));
+		sprintf(sql, "select sno,sname,ssex,sbirthday,sphone from information where sno = %d  and  judge = 1 ", atoi(sno));
 	}
 
 

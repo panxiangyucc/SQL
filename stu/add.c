@@ -13,9 +13,9 @@ int cgiMain()
 
 	char sno[12] = "\0";
 	char sname[10] = "\0";
-	char sage[10] = "\0";
-	char ssex[2] = "\0";
-	char stellphone[11] = "\0";
+  char ssex[4] = "\0";
+	char sbirthday[12] = "\0";
+	char sphone[11] = "\0";
 	int status = 0;
   char ch;
 
@@ -42,26 +42,26 @@ fclose(fd);
 	status = cgiFormString("sname",  sname, 10);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get sname error!\n");
+		fprintf(cgiOut, "get name error!\n");
 		return 1;
 	}
 
-	status = cgiFormString("sage",  sage, 10);
+	status = cgiFormString("sbirthday",  sbirthday, 12);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get sage error!\n");
+		fprintf(cgiOut, "get sbirthday error!\n");
 		return 1;
 	}
-	status = cgiFormString("ssex",  ssex, 2);
+	status = cgiFormString("ssex",  ssex, 4);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get ssex error!\n");
+		fprintf(cgiOut, "get sex error!\n");
 		return 1;
 	}
-	status = cgiFormString("stellphone",  stellphone, 11);
+	status = cgiFormString("sphone",  sphone, 11);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get stellphone error!\n");
+		fprintf(cgiOut, "get phone error!\n");
 		return 1;
 	}
 
@@ -106,8 +106,8 @@ fclose(fd);
 */
 
 
-	sprintf(sql, "insert into information values(%d,'%s',%d,'%s',%d,)",
-	atoi(sno), sname, atoi(sage), ssex, atoi(stellphone));
+	sprintf(sql, "insert into information(sno,sname,sbirthday,ssex,sphone) values(%d,'%s','%s','%s',%d)",
+	atoi(sno), sname, sbirthday, ssex, atoi(sphone));
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));

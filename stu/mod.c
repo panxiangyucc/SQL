@@ -12,9 +12,9 @@ int cgiMain()
 
 	char sno[12] = "\0";
 	char sname[10] = "\0";
-	char sage[10] = "\0";
+	char sbirthday[12] = "\0";
 	char ssex[2] = "\0";
-	char stellphone[11] = "\0";
+	char sphone[11] = "\0";
 	int status = 0;
 
 	char ch;
@@ -46,22 +46,24 @@ fclose(fd);
 		return 1;
 	}
 
-	status = cgiFormString("sage",  sage, 10);
+  status = cgiFormString("ssex",  ssex, 10);
+  if (status != cgiFormSuccess)
+  {
+    fprintf(cgiOut, "get ssex error!\n");
+    return 1;
+  }
+
+	status = cgiFormString("sbirthday",  sbirthday, 12);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get sage error!\n");
+		fprintf(cgiOut, "get sbirthday error!\n");
 		return 1;
 	}
-	status = cgiFormString("ssex",  ssex, 10);
+
+	status = cgiFormString("sphone",  sphone, 11);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get ssex error!\n");
-		return 1;
-	}
-	status = cgiFormString("stellphone",  stellphone, 11);
-	if (status != cgiFormSuccess)
-	{
-		fprintf(cgiOut, "get stellphone error!\n");
+		fprintf(cgiOut, "get sphone error!\n");
 		return 1;
 	}
 
@@ -90,8 +92,8 @@ fclose(fd);
 	}
 
 
-	sprintf(sql, "update information set sname= '%s', sage= %d, ssex= '%s', \
-stellphone= %d where sno= %d ",  sname, atoi(sage), ssex, atoi(stellphone), atoi(sno));
+	sprintf(sql, "update information set sname= '%s', sbirthday= '%s', ssex= '%s', \
+sphone= %d where sno= %d ",  sname, sbirthday, ssex, atoi(sphone), atoi(sno));
 
 	fprintf(cgiOut, "%s<hr>", sql);
 
